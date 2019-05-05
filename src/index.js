@@ -17,7 +17,10 @@ app.post('/users', (req, res) => {
     .then(() => {
       res.send(user);
     })
-    .catch(() => {});
+    .catch(e => {
+      res.status(400);
+      res.send(e);
+    });
 });
 
 app.listen(port, () => {
