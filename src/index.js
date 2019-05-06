@@ -76,6 +76,22 @@ app.get('/tasks', (req, res) => {
     });
 });
 
+// fetching task data from database by id
+app.get('/tasks/:id', (req, res) => {
+  const _id = req.params.id;
+  Task.findById(_id)
+    .then(task => {
+      if (!task) {
+        return res.status(404).send();
+      }
+
+      res.send(task);
+    })
+    .catch(e => {
+      res.status(500).send();
+    });
+});
+
 app.listen(port, () => {
   console.log('Server is up on port ' + port);
 });
