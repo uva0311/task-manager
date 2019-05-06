@@ -24,8 +24,8 @@ app.post('/users', (req, res) => {
     });
 });
 
+// fetching all user data from database
 app.get('/users', (req, res) => {
-  // fetching all user data from database
   User.find({})
     .then(users => {
       res.send(users);
@@ -35,6 +35,7 @@ app.get('/users', (req, res) => {
     });
 });
 
+// fetching user data from database by id
 app.get('/users/:id', (req, res) => {
   const _id = req.params.id;
   User.findById(_id)
@@ -61,6 +62,17 @@ app.post('/tasks', (req, res) => {
     })
     .catch(e => {
       res.status(400).send(e);
+    });
+});
+
+// fetching all task data from database
+app.get('/tasks', (req, res) => {
+  Task.find({})
+    .then(tasks => {
+      res.send(tasks);
+    })
+    .catch(e => {
+      res.status(500).send();
     });
 });
 
