@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/user');
+const auth = require('../middleware/auth');
 const router = new express.Router();
 
 // users endpoint
@@ -29,14 +30,9 @@ router.post('/users/login', async (req, res) => {
   }
 });
 
-// fetching all user data from database
-router.get('/users', async (req, res) => {
-  try {
-    const users = await User.find({});
-    res.send(users);
-  } catch (error) {
-    res.status(500).send();
-  }
+// user profile page, with authentication
+router.get('/users/me', auth, async (req, res) => {
+  res.send(req.user);
 });
 
 // fetching user data from database by id
